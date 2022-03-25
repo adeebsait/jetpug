@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - GroundChecker
+  - Coin
+  - Jetpack
+  - Bubble
+  - Magnet
+  - speeddash
+  - Powerup
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Floor
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: 
+    uniqueID: 1377483969
+    locked: 0
+  - name: Backgrounds
+    uniqueID: 1344766519
+    locked: 0
+  - name: Decorations
+    uniqueID: 1858259083
+    locked: 0
+  - name: Objects
+    uniqueID: 1389149401
+    locked: 0
+  - name: Player
+    uniqueID: 4236017223
+    locked: 0
