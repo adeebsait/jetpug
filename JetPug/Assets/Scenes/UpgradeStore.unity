@@ -390,7 +390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.454, y: -1.5}
+  m_AnchoredPosition: {x: 26.9, y: 0}
   m_SizeDelta: {x: 90.9849, y: 10.9607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &345504053
@@ -602,8 +602,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000038146973, y: 4.2}
-  m_SizeDelta: {x: -56.0567, y: -15.6718}
+  m_AnchoredPosition: {x: -1.5122, y: 1.9317}
+  m_SizeDelta: {x: -22.788, y: -11.1351}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &801303221
 MonoBehaviour:
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1298,8 +1298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000038146973, y: 4.2}
-  m_SizeDelta: {x: -56.0567, y: -15.6718}
+  m_AnchoredPosition: {x: 0.00009918213, y: 1.9316998}
+  m_SizeDelta: {x: -21.2757, y: -11.1351}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1130602243
 MonoBehaviour:
@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1557,7 +1557,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1143375505}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2073684747}
+        m_TargetAssemblyTypeName: UpgradeController, Assembly-CSharp
+        m_MethodName: BLevelUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1143375505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,7 +1777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.454, y: -1.5}
+  m_AnchoredPosition: {x: 24.9, y: 0}
   m_SizeDelta: {x: 90.9849, y: 10.9607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1259246023
@@ -1967,8 +1979,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000038146973, y: 4.2}
-  m_SizeDelta: {x: -56.0567, y: -15.6718}
+  m_AnchoredPosition: {x: -0.7561, y: 2.3097}
+  m_SizeDelta: {x: -21.2757, y: -11.8912}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1402065789
 MonoBehaviour:
@@ -2024,7 +2036,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2102,7 +2114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.454, y: -1.5}
+  m_AnchoredPosition: {x: 27.2, y: 0}
   m_SizeDelta: {x: 90.9849, y: 10.9607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1454483205
@@ -2516,7 +2528,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1689988611}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2073684747}
+        m_TargetAssemblyTypeName: UpgradeController, Assembly-CSharp
+        m_MethodName: MLevelUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1689988611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,7 +2822,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2033435316}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2073684747}
+        m_TargetAssemblyTypeName: UpgradeController, Assembly-CSharp
+        m_MethodName: SLevelUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2033435316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2973,6 +3009,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CoinText: {fileID: 1003947744}
+  SDLevel: {fileID: 1259246023}
+  MagLevel: {fileID: 345504053}
+  BubLevel: {fileID: 1454483205}
+  SDPrice: {fileID: 1130602243}
+  MagPrice: {fileID: 1402065789}
+  BubPrice: {fileID: 801303221}
 --- !u!1 &2105468591
 GameObject:
   m_ObjectHideFlags: 0
