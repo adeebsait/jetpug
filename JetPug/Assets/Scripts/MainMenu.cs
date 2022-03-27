@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameObject AchievementsPanel;
+    public GameObject ResetPanel;
     public GameObject Star1;
     public GameObject Star2;
     public GameObject Star3;
@@ -33,7 +34,7 @@ public class MainMenu : MonoBehaviour
     public void Achievements()
     {
         AchievementsPanel.SetActive(true);
-        if (PlayerPrefs.GetInt("SpeedLevel")==3&&PlayerPrefs.GetInt("MagnetLevel")==3&&PlayerPrefs.GetInt("BubbleLevel")==3)
+        if (PlayerPrefs.GetInt("SpeedLevel") == 3 && PlayerPrefs.GetInt("MagnetLevel") == 3 && PlayerPrefs.GetInt("BubbleLevel") == 3)
         {
             Star1.SetActive(true);
         }
@@ -50,4 +51,35 @@ public class MainMenu : MonoBehaviour
     {
         AchievementsPanel.SetActive(false);
     }
+    public void ResetOpen()
+    {
+        ResetPanel.SetActive(true);
+    }
+    public void ResetAll()
+    {
+        ResetAchievements();
+        ResetUpgrades();
+        ResetPanel.SetActive(false);
+    }
+    public void ResetAchievements()
+    {
+        Star1.SetActive(false);
+        Star2.SetActive(false);
+        PlayerPrefs.SetString("Star3", "false");
+        PlayerPrefs.SetInt("Highscore", 0);
+        Star3.SetActive(false);
+        ResetPanel.SetActive(false);
+    }
+    public void ResetUpgrades()
+    {
+        PlayerPrefs.SetInt("SpeedLevel", 0);
+        PlayerPrefs.SetInt("BubbleLevel", 0);
+        PlayerPrefs.SetInt("MagnetLevel", 0);
+        ResetPanel.SetActive(false);
+    }
+    public void ResetClose()
+    {
+        ResetPanel.SetActive(false);
+    }
+
 }
