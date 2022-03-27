@@ -261,7 +261,6 @@ public class MouseController : MonoBehaviour
     private void ExplosionParticleStop()
     {
         explosion.gameObject.SetActive(false);
-
     }
     private void JetpackSpeedSlow()
     {
@@ -291,6 +290,8 @@ public class MouseController : MonoBehaviour
         CoinText.text = this.coins.ToString();
         meters = Convert.ToInt64(this.transform.position.x - startPoint.x);
         DistText.text = meters.ToString() + "m";
+        if(meters>=100&&this.coins==0)
+            PlayerPrefs.SetString("Star3","true");
         this.highscore=PlayerPrefs.GetInt("Highscore");
         DisplayRestartButton();
     }
@@ -302,8 +303,6 @@ public class MouseController : MonoBehaviour
             isSpeedDashOn = false;
             isBubbleOn = false;
             IsObstacleOn = false;
-            meters = Convert.ToInt64(this.transform.position.x - startPoint.x);
-            DistText.text = meters.ToString() + "m";
             if (meters>highscore)
                 this.highscore=(int)meters;
                 PlayerPrefs.SetInt("Highscore",this.highscore);
@@ -311,7 +310,7 @@ public class MouseController : MonoBehaviour
             gameOver = true;
             explosion.gameObject.SetActive(false);
             GameoverPanel.SetActive(true);
-            GameoverHighScore.text = "Longest Distance:" + this.highscore.ToString();
+            GameoverHighScore.text = "Longest Distance:" + this.highscore.ToString() + "m";
             GameoverCoin.text = "Coin:" + this.coins.ToString();
             GameoverDist.text = "Distance:" + DistText.text;
         }
