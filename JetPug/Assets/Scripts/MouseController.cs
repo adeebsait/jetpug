@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -29,20 +29,27 @@ public class MouseController : MonoBehaviour
     private bool dead;
 
     private int coins = 0;
+    private int highscore = 0;
     private int tcoins = 0;
+    private int distance = 0;
 
     public Text CoinText;
     public Text DistText;
+    public Text HighSTest;
     public GameObject GameoverPanel;
     public Text GameoverCoin;
     public Text GameoverDist;
+
+    public Text GameoverHighScore;
 
     Vector3 startPoint;
     public static bool isBubbleOn = false;
     public static bool isSpeedDashOn = false;
     public static bool isMagnetOn = false;
     public GameObject protectiveLayer;
-    float powerupTime = 10.0f;
+    float[] powerupTime = new float[] { 3.0f, 5.0f, 7.0f, 10.0f };
+    int[] speedTime = new int[] { 4, 3, 2, 1 };
+    //float powerupTime = 10.0f;
     long meters;
 
     public List<GameObject> Objects;
@@ -69,20 +76,14 @@ public class MouseController : MonoBehaviour
         this.rb = this.GetComponent<Rigidbody2D>();
         this.animator = this.GetComponent<Animator>();
         startPoint = transform.position;
-        //print(isMagnetOn + "=isMagnetOn");
         Invoke("AddObstacles", UnityEngine.Random.Range(12, 16));
-
-        //Invoke("AddObstacles", UnityEngine.Random.Range(8, 12));
-
     }
     void AddObstacles()
     {
         if (!this.dead)
         {
-            int randomObjIndex = UnityEngine.Random.Range(0,this.Objects.Count);
-            //Obstacle = Instantiate(this.Objects[randomObjIndex]);
+            int randomObjIndex = UnityEngine.Random.Range(0, this.Objects.Count);
             Obstacle1 = Obstacle2 = Obstacle3 = Obstacle4 = null;
-            //randomObjIndex = 3;
             switch (randomObjIndex)
             {
                 case 0:
@@ -110,8 +111,6 @@ public class MouseController : MonoBehaviour
                     break;
 
             }
-            //Invoke("AddObstacles", UnityEngine.Random.Range(8, 12));
-
             Invoke("AddObstacles", UnityEngine.Random.Range(12, 16));
         }
     }
@@ -125,10 +124,7 @@ public class MouseController : MonoBehaviour
 
         if (jetpackActive)
         {
-                this.rb.AddForce(new Vector2(0, this.jetpackSpeed));
-                //rb.AddForce(Vector2.up * 2 ,ForceMode2D.Impulse);
-                //rb.velocity = new Vector2(rb.velocity.x, 5.0f);
-                //this.rb.AddForce(,force)
+            this.rb.AddForce(new Vector2(0, this.jetpackSpeed));
         }
         if (!this.dead)
         {
@@ -136,9 +132,9 @@ public class MouseController : MonoBehaviour
             velocity.x = this.forwardMovementSpeed;
             this.rb.velocity = velocity;
         }
-        if(Obstacle1!=null)
-            Obstacle1.transform.position = new Vector2(this.transform.position.x +3.0f,-2.31f);
-       else if (Obstacle2 != null)
+        if (Obstacle1 != null)
+            Obstacle1.transform.position = new Vector2(this.transform.position.x + 3.0f, -2.31f);
+        else if (Obstacle2 != null)
             Obstacle2.transform.position = new Vector2(this.transform.position.x + 3.0f, -2.3f);
         else if (Obstacle3 != null)
             Obstacle3.transform.position = new Vector2(this.transform.position.x + 3.0f, 2.73f);
@@ -147,10 +143,8 @@ public class MouseController : MonoBehaviour
 
         this.forwardMovementSpeed += 0.001f;
 
-        if (isSpeedDashOn )
+        if (isSpeedDashOn)
         {
-            //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, 2.41f), 10 * Time.deltaTime);
-
             animator.enabled = false;
             this.timeSinceStart += Time.fixedDeltaTime;
             if (this.timeSinceStart > this.interval)
@@ -158,7 +152,6 @@ public class MouseController : MonoBehaviour
                 setProtectiveLayerPosition();
                 this.InvisibleOn = !this.InvisibleOn;
                 this.timeSinceStart = 0;
-
                 this.spriteRndr.sprite = this.InvisibleOn ? this.Invisible1Sprite : this.Invisible2Sprite;
             }
             this.interval -= 0.001f;
@@ -181,7 +174,7 @@ public class MouseController : MonoBehaviour
             {
                 isMagnetOn = true;
                 collider.gameObject.SetActive(false);
-                Invoke("MagnetDeActivate", powerupTime);
+                Invoke("MagnetDeActivate", powerupTime[PlayerPrefs.GetInt("MagnetLevel")]);
             }
         }
         else if (collider.CompareTag("Bubble"))
@@ -201,16 +194,13 @@ public class MouseController : MonoBehaviour
             if (!this.dead)
             {
                 isSpeedDashOn = true;
-                this.forwardMovementSpeed = this.forwardMovementSpeed + (this.forwardMovementSpeed / 3);
-                //this.transform.position = new Vector2(this.transform.position.x,2.41f);
+                this.forwardMovementSpeed = this.forwardMovementSpeed + (this.forwardMovementSpeed / speedTime[PlayerPrefs.GetInt("SpeedLevel")]);
                 animator.enabled = false;
                 this.spriteRndr.sprite = this.InvisibleOn ? this.Invisible1Sprite : this.Invisible2Sprite;
-                //this.rb.gravityScale = 0;
-                //this.rb.constraints = RigidbodyConstraints2D.FreezePositionY;
                 collider.gameObject.SetActive(false);
-                Invoke("JetpackSpeedSlow", powerupTime);
+                Invoke("JetpackSpeedSlow", powerupTime[PlayerPrefs.GetInt("SpeedLevel")]);
             }
-           
+
         }
         else
         {
@@ -218,15 +208,13 @@ public class MouseController : MonoBehaviour
             {
                 explosion.gameObject.SetActive(true);
                 explosion.enabled = true;
-                Animator   anim=explosion.GetComponent<Animator>();
+                Animator anim = explosion.GetComponent<Animator>();
                 anim.Play("Explosion");
                 explosion.gameObject.transform.position = collider.gameObject.transform.position;
                 Destroy(collider.gameObject);
-                    
+
                 Invoke("ExplosionParticleStop", 1);
             }
-
-            //print("ISbubbleON=" + isBubbleOn);
             if (!isBubbleOn && !isSpeedDashOn)
             {
                 if (!this.dead)
@@ -238,25 +226,35 @@ public class MouseController : MonoBehaviour
             }
             else if (isBubbleOn && !isSpeedDashOn)
             {
-                                //print(protectiveLayer.GetComponent<SpriteRenderer>().sprite.name);
-                if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_10")
+                if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_10" && (PlayerPrefs.GetInt("BubbleLevel") == 3))
                 {
                     protectiveLayer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("all-blue/bubble_7");
                 }
-                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_7")
+                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_7" && (PlayerPrefs.GetInt("BubbleLevel") == 3))
                 {
                     protectiveLayer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("all-blue/bubble_4");
-
                 }
-                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_4")
+                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_4" && (PlayerPrefs.GetInt("BubbleLevel") == 3))
+                {
+                    protectiveLayer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("all-blue/bubble_2");
+                }
+                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_10" && (PlayerPrefs.GetInt("BubbleLevel") == 2))
+                {
+                    protectiveLayer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("all-blue/bubble_7");
+                }
+                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_7" && (PlayerPrefs.GetInt("BubbleLevel") == 2))
+                {
+                    protectiveLayer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("all-blue/bubble_4");
+                }
+                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_10" && (PlayerPrefs.GetInt("BubbleLevel") == 1))
+                {
+                    protectiveLayer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("all-blue/bubble_4");
+                }
+                else if (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_10" || (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_4" && (PlayerPrefs.GetInt("BubbleLevel") == 1)) || (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_4" && (PlayerPrefs.GetInt("BubbleLevel") == 2)) || (protectiveLayer.GetComponent<SpriteRenderer>().sprite.name == "bubble_2" && (PlayerPrefs.GetInt("BubbleLevel") == 3)))
                 {
                     protectiveLayer.gameObject.SetActive(false);
                     isBubbleOn = false;
                 }
-            }
-            else if (isSpeedDashOn && this.rb.gravityScale==0.0f)
-            {
-                //this.transform.position = new Vector2(this.transform.position.x, 2.41f);
             }
         }
     }
@@ -267,14 +265,10 @@ public class MouseController : MonoBehaviour
     }
     private void JetpackSpeedSlow()
     {
-        //this.rb.gravityScale = 1;
-        //this.rb.constraints = RigidbodyConstraints2D.None;
-        //this.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         protectiveLayer.gameObject.transform.localPosition = new Vector3(0.08f, protectiveLayer.gameObject.transform.localPosition.y, protectiveLayer.transform.localPosition.z);
         this.forwardMovementSpeed = 5.0f;
         animator.enabled = true;
         isSpeedDashOn = false;
-        //Invoke("IsspeedOff", 2);
     }
     private void setProtectiveLayerPosition()
     {
@@ -282,11 +276,6 @@ public class MouseController : MonoBehaviour
             protectiveLayer.gameObject.transform.localPosition = new Vector3(1.31f, protectiveLayer.gameObject.transform.localPosition.y, protectiveLayer.transform.localPosition.z);
         else
             protectiveLayer.gameObject.transform.localPosition = new Vector3(0.08f, protectiveLayer.gameObject.transform.localPosition.y, protectiveLayer.transform.localPosition.z);
-    }
-
-    void IsspeedOff()
-    {
-        isSpeedDashOn = false;
     }
     public void BubbleDeactivate()
     {
@@ -296,13 +285,13 @@ public class MouseController : MonoBehaviour
     private void MagnetDeActivate()
     {
         isMagnetOn = false;
-        print(isMagnetOn + "=isMagnetOn");
     }
     private void Update()
     {
         CoinText.text = this.coins.ToString();
         meters = Convert.ToInt64(this.transform.position.x - startPoint.x);
-        DistText.text = meters.ToString()+"m";
+        DistText.text = meters.ToString() + "m";
+        this.highscore=PlayerPrefs.GetInt("Highscore");
         DisplayRestartButton();
     }
     private void DisplayRestartButton()
@@ -313,12 +302,18 @@ public class MouseController : MonoBehaviour
             isSpeedDashOn = false;
             isBubbleOn = false;
             IsObstacleOn = false;
+            meters = Convert.ToInt64(this.transform.position.x - startPoint.x);
+            DistText.text = meters.ToString() + "m";
+            if (meters>highscore)
+                this.highscore=(int)meters;
+                PlayerPrefs.SetInt("Highscore",this.highscore);
             CancelInvoke();
             gameOver = true;
             explosion.gameObject.SetActive(false);
             GameoverPanel.SetActive(true);
-            GameoverCoin.text = "Coin:" +this.coins.ToString();
-            GameoverDist.text = "Distance:" +DistText.text;
+            GameoverHighScore.text = "Longest Distance:" + this.highscore.ToString();
+            GameoverCoin.text = "Coin:" + this.coins.ToString();
+            GameoverDist.text = "Distance:" + DistText.text;
         }
     }
     public void RestartButtonClick()
@@ -333,9 +328,9 @@ public class MouseController : MonoBehaviour
     }
     private void CheckIfOnGround()
     {
-       var colliding = Physics2D.OverlapCircle(this.groundChecker.transform.position, 0.1f, this.layerMask);
-       this.grounded = colliding == null ? false : true;
-       this.animator.SetBool("Grounded", this.grounded);
-       this.footstepsAudioSource.enabled = this.grounded;
+        var colliding = Physics2D.OverlapCircle(this.groundChecker.transform.position, 0.1f, this.layerMask);
+        this.grounded = colliding == null ? false : true;
+        this.animator.SetBool("Grounded", this.grounded);
+        this.footstepsAudioSource.enabled = this.grounded;
     }
 }
