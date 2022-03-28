@@ -7,20 +7,21 @@ public class MissleController : MonoBehaviour
     private SpriteRenderer spriteRndr;
     private BoxCollider2D boxCollider;
     public GameObject missileWarning;
+    public GameObject player;
     bool missilewarning = false;
     // Start is called before the first frame update
     void Start()
     {
         this.spriteRndr = this.GetComponent<SpriteRenderer>();
         this.spriteRndr.enabled = false;
-
         this.boxCollider = this.GetComponent<BoxCollider2D>();
         this.boxCollider.enabled = false;
+        player = GameObject.Find("Player");
         Invoke("MissileStartEffect", 0);
         Invoke("Warningstop", 2);
         Invoke("MissileStopEffect", 5);
+        missileWarning.transform.position=new Vector2(this.transform.position.x,this.transform.position.y);
         missileWarning.gameObject.SetActive(true);
-
     }
     void MissileStartEffect()
     {
@@ -30,10 +31,8 @@ public class MissleController : MonoBehaviour
                 missileWarning.GetComponent<SpriteRenderer>().enabled = false;
             else
                 missileWarning.GetComponent<SpriteRenderer>().enabled = true;
-
             Invoke("MissileStartEffect", 0.1f);
         }
-
     }
     void Warningstop()
     {
@@ -47,7 +46,6 @@ public class MissleController : MonoBehaviour
     void MissileStopEffect()
     {
         Invoke("MakeObstacleOn", 2f);
-        //MouseController.IsObstacleOn = false;
         missilewarning = false;
         
     }
@@ -58,8 +56,6 @@ public class MissleController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //this.transform.Translate(0, 0, rotationSpeed * Time.fixedDeltaTime);
-        //transform.Translate(Vector3.forward * Time.deltaTime * speed);
         if (missileWarning)
             transform.Translate(-Vector2.right * 8.0f*Time.deltaTime);
     }

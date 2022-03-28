@@ -35,7 +35,6 @@ public class MouseController : MonoBehaviour
 
     public Text CoinText;
     public Text DistText;
-    public Text HighSTest;
     public GameObject GameoverPanel;
     public Text GameoverCoin;
     public Text GameoverDist;
@@ -43,10 +42,12 @@ public class MouseController : MonoBehaviour
     public Text GameoverHighScore;
 
     Vector3 startPoint;
+
     public static bool isBubbleOn = false;
     public static bool isSpeedDashOn = false;
     public static bool isMagnetOn = false;
     public GameObject protectiveLayer;
+    public GameObject player;
     float[] powerupTime = new float[] { 3.0f, 5.0f, 7.0f, 10.0f };
     int[] speedTime = new int[] { 4, 3, 2, 1 };
     //float powerupTime = 10.0f;
@@ -95,21 +96,17 @@ public class MouseController : MonoBehaviour
                     Obstacle2 = Instantiate(this.Objects[1]);
                     Obstacle2.transform.position = new Vector2(this.transform.position.x + 3.0f, -2.3f);
                     IsObstacleOn = true;
-
                     break;
                 case 2:
                     Obstacle3 = Instantiate(this.Objects[2]);
                     Obstacle3.transform.position = new Vector2(this.transform.position.x + 3.0f, 2.73f);
                     IsObstacleOn = true;
-
                     break;
                 case 3:
                     Obstacle4 = Instantiate(this.Objects[3]);
-                    Obstacle4.transform.position = new Vector2(this.transform.position.x + 8f, Obstacle4.transform.position.y);
+                    Obstacle4.transform.position = new Vector2(this.transform.position.x , player.transform.position.y);
                     IsObstacleOn = true;
-
                     break;
-
             }
             Invoke("AddObstacles", UnityEngine.Random.Range(12, 16));
         }
@@ -117,8 +114,6 @@ public class MouseController : MonoBehaviour
     public void FixedUpdate()
     {
         var jetpackActive = Input.GetButton("Jump") && !dead;
-
-        //var jetpackActive = Input.GetButton("Fire1") && !dead;
         this.CheckIfOnGround();
         this.AdjustJetpack(jetpackActive);
 
@@ -200,7 +195,6 @@ public class MouseController : MonoBehaviour
                 collider.gameObject.SetActive(false);
                 Invoke("JetpackSpeedSlow", powerupTime[PlayerPrefs.GetInt("SpeedLevel")]);
             }
-
         }
         else
         {
@@ -212,7 +206,6 @@ public class MouseController : MonoBehaviour
                 anim.Play("Explosion");
                 explosion.gameObject.transform.position = collider.gameObject.transform.position;
                 Destroy(collider.gameObject);
-
                 Invoke("ExplosionParticleStop", 1);
             }
             if (!isBubbleOn && !isSpeedDashOn)
@@ -290,9 +283,9 @@ public class MouseController : MonoBehaviour
         CoinText.text = this.coins.ToString();
         meters = Convert.ToInt64(this.transform.position.x - startPoint.x);
         DistText.text = meters.ToString() + "m";
-        if(meters>=100&&this.coins==0)
-            PlayerPrefs.SetString("Star3","true");
-        this.highscore=PlayerPrefs.GetInt("Highscore");
+        if (meters >= 100 && this.coins == 0)
+            PlayerPrefs.SetString("Star3", "true");
+        this.highscore = PlayerPrefs.GetInt("Highscore");
         DisplayRestartButton();
     }
     private void DisplayRestartButton()
@@ -303,9 +296,9 @@ public class MouseController : MonoBehaviour
             isSpeedDashOn = false;
             isBubbleOn = false;
             IsObstacleOn = false;
-            if (meters>highscore)
-                this.highscore=(int)meters;
-                PlayerPrefs.SetInt("Highscore",this.highscore);
+            if (meters > highscore)
+                this.highscore = (int)meters;
+            PlayerPrefs.SetInt("Highscore", this.highscore);
             CancelInvoke();
             gameOver = true;
             explosion.gameObject.SetActive(false);

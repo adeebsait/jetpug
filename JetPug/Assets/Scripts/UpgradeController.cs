@@ -32,9 +32,6 @@ public class UpgradeController : MonoBehaviour
         MagnetLevel = PlayerPrefs.GetInt("MagnetLevel");
         BubbleLevel = PlayerPrefs.GetInt("BubbleLevel");
         Scoins = coins;
-        PlayerPrefs.SetInt("SpeedLevel", 0);
-        PlayerPrefs.SetInt("BubbleLevel", 0);
-        PlayerPrefs.SetInt("MagnetLevel", 0);
     }
 
     public void SLevelUpgrade()
@@ -42,7 +39,7 @@ public class UpgradeController : MonoBehaviour
         if (SpeedLevel < 3 && Scoins >= SDSpend)
         {
             SpeedLevel++;
-            PlayerPrefs.SetInt("SpeedLevel", this.SpeedLevel);
+            PlayerPrefs.SetInt("SpeedLevel", SpeedLevel);
             
             Scoins = Scoins - SDSpend;
             PlayerPrefs.SetInt("Coin", this.Scoins);
@@ -53,7 +50,7 @@ public class UpgradeController : MonoBehaviour
         if (MagnetLevel < 3 && Scoins >= MSpend)
         {
             MagnetLevel++;
-            PlayerPrefs.SetInt("MagnetLevel", this.MagnetLevel);
+            PlayerPrefs.SetInt("MagnetLevel", MagnetLevel);
             
             Scoins = Scoins - MSpend;
             PlayerPrefs.SetInt("Coin", this.Scoins);
@@ -64,7 +61,7 @@ public class UpgradeController : MonoBehaviour
         if (BubbleLevel < 3 && Scoins >= BSpend)
         {
             BubbleLevel++;
-            PlayerPrefs.SetInt("BubbleLevel", this.BubbleLevel);
+            PlayerPrefs.SetInt("BubbleLevel", BubbleLevel);
             
             Scoins = Scoins - BSpend;
             PlayerPrefs.SetInt("Coin", this.Scoins);
