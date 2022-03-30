@@ -25,7 +25,7 @@ public class MissleController : MonoBehaviour
     }
     void MissileStartEffect()
     {
-        if (MouseController.IsObstacleOn)
+        if (PlayerController.IsObstacleOn)
         {
             if (missileWarning.GetComponent<SpriteRenderer>().enabled)
                 missileWarning.GetComponent<SpriteRenderer>().enabled = false;
@@ -51,7 +51,7 @@ public class MissleController : MonoBehaviour
     }
     void MakeObstacleOn()
     {
-        MouseController.IsObstacleOn = false;
+        PlayerController.IsObstacleOn = false;
     }
     // Update is called once per frame
     void FixedUpdate()

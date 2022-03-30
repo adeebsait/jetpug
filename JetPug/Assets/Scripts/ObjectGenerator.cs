@@ -92,7 +92,7 @@ public class ObjectGenerator : MonoBehaviour
     }
     public void SpawnPopupup()
     {
-        if (!MouseController.gameOver)
+        if (!PlayerController.gameOver)
         {
             var randomObjIndex = 1;
             randomObjIndex = Random.Range(0, this.PowerupAvailableObjects.Count);
@@ -119,7 +119,7 @@ public class ObjectGenerator : MonoBehaviour
         //if (!MouseController.IsObstacleOn)
         {
                 var randomObjIndex = 1;
-                if (!MouseController.isBubbleOn && !MouseController.isMagnetOn && !MouseController.isSpeedDashOn)
+                if (!PlayerController.isBubbleOn && !PlayerController.isMagnetOn && !PlayerController.isSpeedDashOn)
                     randomObjIndex = Random.Range(0, this.availableObjects.Count);
 
                 var  obj = Instantiate(this.availableObjects[randomObjIndex]);    

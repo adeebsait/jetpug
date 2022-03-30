@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System;
 
-public class MouseController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float jetpackSpeed = 75f;
     public float forwardMovementSpeed = 10.0f;

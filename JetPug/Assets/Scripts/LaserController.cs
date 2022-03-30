@@ -31,7 +31,7 @@ public class LaserController : MonoBehaviour
     
     void LaserStartEffect()
     {
-        if (MouseController.IsObstacleOn)
+        if (PlayerController.IsObstacleOn)
         {
             if (counter <= 3)
             {
@@ -76,12 +76,12 @@ public class LaserController : MonoBehaviour
         
         spriteRndr.sprite = null;
         this.boxCollider.enabled = false;
-        MouseController.IsObstacleOn = false;
+        PlayerController.IsObstacleOn = false;
         //Invoke("MakeObstacleOn", 2f);
     }
     void MakeObstacleOn()
     {
-        MouseController.IsObstacleOn = false;
+        PlayerController.IsObstacleOn = false;
     }
     public void FixedUpdate()
     {

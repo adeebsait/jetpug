@@ -5,18 +5,18 @@ using UnityEngine;
 public class CoinMove : MonoBehaviour
 {
     GameObject Player;
-    MouseController playerscript;
+    PlayerController playerscript;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        playerscript = Player.GetComponent<MouseController>();
+        playerscript = Player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (MouseController.isMagnetOn)
+        if (PlayerController.isMagnetOn)
         {
             if (Player.transform.position.x - transform.position.x <= 1.0f && Player.transform.position.x - transform.position.x > -1.0f)
                 if (PlayerPrefs.GetInt("MagnetLevel") == 0)
