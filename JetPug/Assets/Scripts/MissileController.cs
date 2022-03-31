@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissleController : MonoBehaviour
+public class MissileController : MonoBehaviour
 {
     private SpriteRenderer spriteRndr;
     private BoxCollider2D boxCollider;

@@ -5900,7 +5900,6 @@ MonoBehaviour:
   jetpackAudioSource: {fileID: 935670971}
   CoinText: {fileID: 1789003402}
   DistText: {fileID: 1174154450}
-  HighSTest: {fileID: 0}
   GameoverPanel: {fileID: 1093597011}
   GameoverCoin: {fileID: 1734620788}
   GameoverDist: {fileID: 1029062731}
